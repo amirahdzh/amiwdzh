@@ -81,7 +81,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import AppHeader from '@/components/AppHeader.vue';
+// import AppHeader from '@/components/AppHeader.vue';
 
 const tab = ref(1); // Inisialisasi tab yang aktif
 </script>

@@ -10,7 +10,7 @@
           :duration="1200"
         >
           <v-img
-            src="@/assets/images/image.jpg"
+            src="@/assets/images/maple.png"
             alt="Hero Image"
             class="mb-4 hero-image"
             height="400px"
