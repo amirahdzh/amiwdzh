@@ -23,7 +23,7 @@ export default createVuetify({
         colors: {
           background: colors.grey.lighten4, // Gunakan warna dari utilitas Vuetify
           surface: colors.grey.lighten3,
-          primary: colors.pink.lighten3, // Red Darken-1 sebagai warna primary
+          primary: colors.pink.lighten3, 
           "on-background": colors.shades.black, // Teks di latar belakang
           secondary: colors.blue.lighten4, // Warna sekunder
         },
@@ -33,7 +33,7 @@ export default createVuetify({
         colors: {
           background: colors.grey.darken4,
           surface: colors.grey.darken3,
-          primary: colors.pink.lighten4, // Tetap gunakan Red Darken-1
+          primary: colors.pink.lighten4, 
           "on-background": colors.shades.white,
           secondary: colors.blue.lighten4,
         },

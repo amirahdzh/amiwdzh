@@ -1,36 +1,41 @@
+import { createRouter, createWebHistory } from "vue-router";
+import HomeSection from "@/components/HomeSection.vue";
+import ProjectSection from "@/components/ProjectSection.vue";
+import BlogSection from "@/components/BlogSection.vue";
 
-/**
- * router/index.ts
- *
- * Automatic routes for `./src/pages/*.vue`
- */
+let isFirstLoad = true; // Flag in memory to track first load
 
-// Composables
-import { createRouter, createWebHistory } from 'vue-router/auto'
-import { routes } from 'vue-router/auto-routes'
+const routes = [
+  { path: "/", name: "Home", component: HomeSection },
+  { path: "/project", name: "Project", component: ProjectSection },
+  { path: "/blog", name: "Blog", component: BlogSection },
+];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes,
-})
+  scrollBehavior(to, from, savedPosition) {
+    // Jika ini adalah load pertama kali
+    // if (isFirstLoad) {
+    //   isFirstLoad = false; // Set flag ke false setelah load pertama kali
+    //   return { top: 0 }; // Set posisi scroll ke atas untuk load pertama kali
+    // }
 
-// Workaround for https://github.com/vitejs/vite/issues/11804
-router.onError((err, to) => {
-  if (err?.message?.includes?.('Failed to fetch dynamically imported module')) {
-    if (!localStorage.getItem('vuetify:dynamic-reload')) {
-      console.log('Reloading page to fix dynamic import error')
-      localStorage.setItem('vuetify:dynamic-reload', 'true')
-      location.assign(to.fullPath)
-    } else {
-      console.error('Dynamic import error, reloading page did not fix it', err)
+    // Jika ini bukan load pertama kali, scroll ke content-container
+    if (savedPosition) {
+      return savedPosition;
     }
-  } else {
-    console.error(err)
-  }
-})
+    
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const element = document.querySelector(".content-container");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        resolve();
+      }, 100); // Delay sedikit untuk memastikan router selesai
+    });
+  },
+});
 
-router.isReady().then(() => {
-  localStorage.removeItem('vuetify:dynamic-reload')
-})
-
-export default router
+export default router;

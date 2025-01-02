@@ -1,14 +1,14 @@
 <template>
   <div class="project-section">
     <!-- Filter dengan ukuran lebih kecil dan desain lebih simpel -->
-    <v-select
+    <!-- <v-select
       v-model="selectedCategory"
       :items="categories"
       label="Filter by Category"
       outlined
       dense
       class="filter-select mb-4"
-    />
+    /> -->
     <v-row class="align-center" justify="center" dense>
       <v-col
         v-for="project in filteredProjects"
