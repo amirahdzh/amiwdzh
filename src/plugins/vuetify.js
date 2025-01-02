@@ -9,7 +9,6 @@ import "@mdi/font/css/materialdesignicons.css";
 import "vuetify/styles";
 
 // Composables
-import { MotionDirective as motion } from '@vueuse/motion'
 import { createVuetify } from "vuetify";
 import colors from "vuetify/lib/util/colors"; // Impor palet warna Vuetify
 
