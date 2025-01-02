@@ -10,16 +10,49 @@
     <div class="sun" @click="toggleTheme">
       <!-- Gunakan tombol dengan ikon -->
       <button class="theme-toggle-btn">
-        <span class="sun-icon">{{ theme.global.current.value.dark ? '🌙' : '☀️' }}</span>
+        <span class="sun-icon">{{
+          theme.global.current.value.dark ? "🌙" : "☀️"
+        }}</span>
       </button>
     </div>
 
     <!-- Konten di atas canvas -->
     <div class="hero-content">
-      <h1 class="hero-title">A M I W</h1>
+      <!-- <h1 class="hero-title">A M I W</h1> -->
+      <!-- Avatar sebagai pengganti teks AMIW -->
+      <div class="avatar-container" @click="scrollToContent"x>
+        <img
+          src="@/assets/images/image.jpg"
+          alt="Amiw Avatar"
+          class="avatar-image"
+        />
+      </div>
       <p class="hero-description">
         <span class="typewriter">{{ currentText }}</span>
       </p>
+       <!-- <p>Maybe I am a coder?</p> -->
+
+      <!-- Ikon Tech Stack -->
+      <div class="tech-stack">
+        <v-icon>mdi-react</v-icon> <!-- React Icon -->
+        <v-icon>mdi-vuejs</v-icon> <!-- Vue.js Icon -->
+        <v-icon>mdi-laravel</v-icon> <!-- Laravel Icon -->
+        <v-icon>mdi-nodejs</v-icon> <!-- Express/Node.js Icon -->
+        <v-icon>mdi-database</v-icon> <!-- MySQL / MongoDB Icon -->
+      </div>
+
+      <!-- Ikon untuk LinkedIn, GitHub, dan Contact Me -->
+      <div class="social-icons">
+        <a href="https://www.linkedin.com/in/amirahdzh" target="_blank">
+          <v-icon>mdi-linkedin</v-icon>  <!-- LinkedIn Icon -->
+        </a>
+        <a href="https://github.com/amirahdzh" target="_blank">
+          <v-icon>mdi-github</v-icon>    <!-- GitHub Icon -->
+        </a>
+        <a href="mailto:amirahdzh@gmail.com">
+          <v-icon>mdi-email</v-icon>      <!-- Contact Email Icon -->
+        </a>
+      </div>
 
       <div class="scroll-indicator" @click="scrollToContent">
         <button class="circle-button">
@@ -51,7 +84,7 @@ const sceneCanvas = ref(null);
 const petalCanvas = ref(null);
 
 // Data teks yang akan ditampilkan
-const textArray = ["WRITER", "FULL-STACK DEVELOPER", "TRAVELER"];
+const textArray = ["WRITING ENTHUSIAST", "FULL-STACK DEVELOPER", "TRAVELER"];
 const currentText = ref("");
 const currentIndex = ref(0);
 
@@ -108,50 +141,11 @@ const drawScene = () => {
   gradient.addColorStop(0, "#87CEEB");
   gradient.addColorStop(1, "#f1c27d");
   ctx.save();
-  ctx.globalAlpha = 0.4;
+  ctx.globalAlpha = 0.5;
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.restore();
-
-  // drawTrees(ctx, canvas);
 };
-
-// Fungsi untuk menggambar pohon
-const drawTrees = (ctx, canvas) => {
-  const treePositions = getTreePositions(canvas);
-
-  treePositions.forEach(({ x, y }) => {
-    drawTree(ctx, x, y);
-  });
-};
-
-// Fungsi untuk menggambar satu pohon
-const drawTree = (ctx, x, y) => {
-  ctx.fillStyle = "#8B4513";
-  ctx.fillRect(x - 10, y, 20, 80);
-
-  ctx.beginPath();
-  ctx.arc(x, y - 10, 40, 0, Math.PI * 2, false);
-  ctx.fillStyle = "#228B22";
-  ctx.fill();
-  ctx.closePath();
-};
-
-const getTreePositions = (canvas) => {
-  const numTrees = 3; // Jumlah pohon
-  const treeWidth = 200; // Lebar pohon
-  const totalWidth = canvas.width - treeWidth; // Mengurangi lebar pohon dari canvas width
-  const spacing = totalWidth / (numTrees + 1); // Menghitung jarak antar pohon yang merata
-
-  return Array.from({ length: numTrees }, (_, index) => {
-    // Menghitung posisi x agar pohon tersebar merata dan tanpa offset ke kiri
-    const x = spacing * (index + 1) + treeWidth / 2; // Menempatkan pohon di posisi tengah dari setiap bagian
-    const y = canvas.height - 80; // Posisi pohon di bagian bawah canvas
-    return { x, y };
-  });
-};
-
-
 
 // Fungsi untuk animasi petal
 const startPetalAnimation = () => {
@@ -183,7 +177,7 @@ const startPetalAnimation = () => {
       this.h = (20 + Math.random() * 10) * scaleFactor;
       this.x = Math.random() * canvas.width;
       this.y = -this.h;
-      this.opacity = this.w ;
+      this.opacity = this.w;
       this.flip = Math.random();
       this.xSpeed = (Math.random() - 0.5) * 3 * scaleFactor;
       this.ySpeed = (0.5 + Math.random() * 1.5) * scaleFactor;
@@ -221,12 +215,12 @@ const startPetalAnimation = () => {
 
 // Mengatur canvas saat komponen dimuat
 onMounted(() => {
-  drawScene();
+  // drawScene();
   startPetalAnimation();
   cycleText();
 
   window.addEventListener("resize", () => {
-    drawScene();
+    // drawScene();
     petalCanvas.value.width = window.innerWidth;
     petalCanvas.value.height = window.innerHeight;
   });
@@ -286,25 +280,26 @@ const scrollToContent = () => {
 
 .hero-title {
   font-size: clamp(2rem, 5vw, 4rem);
-  font-style: italic;
-  font-weight: 700;
+  /* font-style: italic; */
+  font-weight: 1000;
   color: rgb(var(--v-theme-on-background));
-  font-family: "Courier New", Courier, monospace;
+  /* font-family: "Courier New", Courier, monospace; */
 }
 
 .hero-description {
-  font-size: clamp(1rem, 3vw, 3rem);
+  font-size: clamp(2rem, 5vw, 3rem);
   display: inline-block;
   font-family: "Courier New", Courier, monospace;
-  color: rgb(var(--v-theme-text));
   position: relative;
-  min-height: 5rem;
+  /* min-height: 5rem; */
+  align-items: center;
+  font-weight: 900;
 }
 
 .typewriter {
   display: inline-block;
   font-size: clamp(1.5rem, 4vw, 2.5rem);
-  color: rgb(var(--v-theme-accent));
+  color: rgb(var(--v-theme-primary));
   overflow: hidden;
   white-space: nowrap;
   border-right: 0.1rem solid rgb(var(--v-theme-primary));
@@ -315,9 +310,10 @@ const scrollToContent = () => {
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  color: var(--v-theme-primary);
+  color: rgb(var(--v-theme-on-background));
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   animation: bounce 2s infinite;
+  margin-top: 2rem;
 }
 
 @keyframes bounce {
@@ -348,11 +344,12 @@ const scrollToContent = () => {
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
   cursor: pointer;
-  color: rgb(var(--v-theme-background));
-  background-color: rgb(var(--v-theme-on-background));
+  color: rgb(var(--v-theme-on-background));
+  /* background-color: rgb(var(--v-theme-primary)); */
   transition: transform 0.2s ease, background-color 0.2s ease;
+  border: 2px solid rgb(var(--v-theme-on-background));
 }
 
 .circle-button:hover {
@@ -375,6 +372,74 @@ const scrollToContent = () => {
 
 .sun-icon {
   font-size: clamp(3rem, 5vw, 4.5rem);
+}
 
+.avatar-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+  /* border: 4px solid rgb(var(--v-theme-on-background)); */
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  /* margin-top: 20px; */
+  gap: 15px;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);  /* Ukuran font responsif */
+  /* font-size: 2rem; */
+  color: rgb(var(--v-theme-on-background));
+  /* margin-bottom: 2rem; */
+}
+
+/* .tech-stack .v-icon {
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+} */
+
+.tech-stack .v-icon:hover {
+  /* transform: scale(1.2); */
+  color: rgb(var(--v-theme-primary));
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  margin-top: 2rem;
+  color: rgb(var(--v-theme-background));
+  background-color: rgb(var(--v-theme-primary));
+  border: 1px solid rgb(var(--v-theme-primary));
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.social-icons a {
+  color: inherit; 
+  transition: transform 0.3s ease-in-out;
+}
+
+.social-icons .v-icon:hover {
+  transform: scale(1.2);
+  /* color: rgb(var(--v-theme-on-background)); */
 }
 </style>
