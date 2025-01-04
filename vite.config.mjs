@@ -48,6 +48,7 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    historyApiFallback: true, // Ini penting saat pengembangan
   },
   css: {
     preprocessorOptions: {

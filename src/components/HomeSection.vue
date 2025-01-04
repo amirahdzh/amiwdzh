@@ -354,11 +354,6 @@ const openLink = (link) => {
   justify-content: start;
 }
 
-.description-name {
-  /* Jika perlu, bisa menambahkan margin kiri untuk memberi jarak */
-  /* margin-left: 8rem; */
-}
-
 .avatar {
   width: 100px;
   height: 100px;
