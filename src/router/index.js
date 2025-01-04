@@ -26,15 +26,23 @@ const router = createRouter({
       return savedPosition;
     }
     
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const element = document.querySelector(".content-container");
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-        resolve();
-      }, 100); // Delay sedikit untuk memastikan router selesai
-    });
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     const element = document.querySelector(".content-container");
+    //     if (element) {
+    //       element.scrollIntoView({ behavior: "smooth", block: "start" });
+    //     }
+    //     resolve();
+    //   }, 100); // Delay sedikit untuk memastikan router selesai
+    // });
+    // Jika bukan route '/'
+    if (to.path !== "/") {
+      const element = document.querySelector(".content-container");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      return; // Menghentikan proses scroll default
+    }
   },
 });
 

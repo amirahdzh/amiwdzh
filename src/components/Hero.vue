@@ -1,7 +1,5 @@
 <template>
   <div class="hero-section">
-    <!-- Canvas untuk pemandangan -->
-    <canvas ref="sceneCanvas" class="scene-canvas"></canvas>
 
     <!-- Canvas untuk petal animasi -->
     <canvas ref="petalCanvas" class="petal-canvas"></canvas>
@@ -80,11 +78,10 @@ function toggleTheme() {
 }
 
 // References untuk canvas
-const sceneCanvas = ref(null);
 const petalCanvas = ref(null);
 
 // Data teks yang akan ditampilkan
-const textArray = ["WRITING ENTHUSIAST", "FULL-STACK DEVELOPER", "TRAVELER"];
+const textArray = ["WRITING ENTHUSIAST", "FULL-STACK DEVELOPER"];
 const currentText = ref("");
 const currentIndex = ref(0);
 
@@ -130,22 +127,6 @@ const deleteText = (text, callback) => {
   }, 100);
 };
 
-// Fungsi untuk menggambar pemandangan
-const drawScene = () => {
-  const canvas = sceneCanvas.value;
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-  gradient.addColorStop(0, "#87CEEB");
-  gradient.addColorStop(1, "#f1c27d");
-  ctx.save();
-  ctx.globalAlpha = 0.5;
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.restore();
-};
 
 // Fungsi untuk animasi petal
 const startPetalAnimation = () => {
@@ -215,12 +196,10 @@ const startPetalAnimation = () => {
 
 // Mengatur canvas saat komponen dimuat
 onMounted(() => {
-  // drawScene();
   startPetalAnimation();
   cycleText();
 
   window.addEventListener("resize", () => {
-    // drawScene();
     petalCanvas.value.width = window.innerWidth;
     petalCanvas.value.height = window.innerHeight;
   });
@@ -228,7 +207,6 @@ onMounted(() => {
 
 // Membersihkan event listener saat komponen di-unmount
 onBeforeUnmount(() => {
-  window.removeEventListener("resize", drawScene);
   clearInterval(typingInterval);
   clearInterval(deletingInterval);
 });
@@ -256,6 +234,19 @@ const scrollToContent = () => {
   align-items: center;
   text-align: center;
   overflow: hidden;
+  animation: 1.5s fadeIn ease-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0; /* Mulai dengan elemen transparan */
+  }
+  50% {
+    opacity: 0.5; /* Elemen menjadi setengah terlihat */
+  }
+  100% {
+    opacity: 1; /* Elemen menjadi sepenuhnya terlihat */
+  }
 }
 
 .sun {
@@ -360,7 +351,6 @@ const scrollToContent = () => {
   font-size: 24px;
 }
 
-.scene-canvas,
 .petal-canvas {
   position: absolute;
   top: 0;

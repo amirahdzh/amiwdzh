@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app id="app">
     <!-- Hero Section -->
     <div class="top-content">
       <Hero />
@@ -18,14 +18,14 @@
     <header class="header">
       <div class="logo-container"></div>
       <v-tabs align-tabs="end" color="primary" vertical>
-        <v-tab :to="'/'">Home</v-tab>
-        <v-tab :to="'/project'">Project</v-tab>
-        <v-tab :to="'/blog'">Blog</v-tab>
+        <v-tab @click="handleTabChange" :to="'/'">Home</v-tab>
+        <v-tab @click="handleTabChange" :to="'/project'">Project</v-tab>
+        <v-tab @click="handleTabChange" :to="'/blog'">Blog</v-tab>
       </v-tabs>
     </header>
 
     <!-- Content Area -->
-    <main class="content-container">
+    <main class="content-container" ref="contentContainer">
       <router-view />
     </main>
 
@@ -37,8 +37,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, nextTick, onMounted, onBeforeUnmount } from "vue";
 import { useTheme } from "vuetify";
+import { useRoute } from "vue-router"; // Import useRoute from vue-router
 import Hero from "@/components/Hero.vue";
 import AppFooter from "@/components/AppFooter.vue";
 
@@ -59,14 +60,20 @@ onBeforeUnmount(() => {
   window.removeEventListener("scroll", handleScroll);
 });
 
+const route = useRoute(); // Hook to get the current route
+
 // Handle Scroll
 function handleScroll() {
   const currentScrollTop = window.scrollY;
-  const topContentRect = document.querySelector(".top-content")?.getBoundingClientRect();
-  const isTopContentInView = topContentRect?.bottom > 0;
+  const topContentRect = document
+    .querySelector(".top-content")
+    ?.getBoundingClientRect();
+  const isTopContentInView = topContentRect?.bottom > 500;
 
   isFooterVisible.value = !isTopContentInView;
-  isFabScrollUpHidden.value = !(currentScrollTop < lastScrollTop && currentScrollTop > 100);
+  isFabScrollUpHidden.value = !(
+    currentScrollTop < lastScrollTop && currentScrollTop > 100
+  );
 
   lastScrollTop = Math.max(currentScrollTop, 0);
 }
@@ -75,9 +82,25 @@ function handleScroll() {
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
+
+// Handle Tab Change for Smooth Scroll
+function handleTabChange() {
+  nextTick(() => {
+    // const contentContainer = $refs.contentContainer;
+    const contentContainer = document.querySelector(".content-container");
+    if (contentContainer) {
+      contentContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+}
 </script>
 
 <style scoped>
+#app {
+  /* margin-bottom: 40px; */
+  padding-bottom: 40px;
+}
+
 .header {
   display: flex;
   justify-content: center;
@@ -106,7 +129,6 @@ function scrollToTop() {
   padding: 5%;
   padding-top: 50px;
   padding-bottom: 30px;
-  background-color: var(--v-theme-surface);
   border-radius: 12px;
 }
 
@@ -119,5 +141,10 @@ function scrollToTop() {
 .footer-slide-leave-to {
   transform: translateY(100%);
   opacity: 0;
+}
+
+.poppins {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem; /* Ukuran subtitle lebih kecil */
 }
 </style>
