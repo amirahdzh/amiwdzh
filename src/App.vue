@@ -1,18 +1,27 @@
 <template>
   <v-app id="app">
     <!-- Hero Section -->
-    <div class="top-content">
+    <div class="top-content" ref="topContentRef">
       <Hero />
     </div>
 
     <!-- FAB untuk ScrollUp -->
-    <v-fab
+    <!-- <v-fab
       icon="mdi-chevron-up"
       color="primary"
       @click="scrollToTop"
       class="fab-button-scrollup"
       :class="{ hidden: isFabScrollUpHidden }"
-    />
+    /> -->
+    <transition name="scale-transition">
+      <v-fab
+        v-show="!isFabScrollUpHidden"
+        icon="mdi-chevron-up"
+        color="primary"
+        @click="scrollToTop"
+        class="fab-button-scrollup"
+      />
+    </transition>
 
     <!-- Header -->
     <header class="header">
@@ -52,6 +61,8 @@ const isFooterVisible = ref(false);
 
 let lastScrollTop = 0;
 
+const topContentRef = ref(null);
+
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
 });
@@ -65,10 +76,8 @@ const route = useRoute(); // Hook to get the current route
 // Handle Scroll
 function handleScroll() {
   const currentScrollTop = window.scrollY;
-  const topContentRect = document
-    .querySelector(".top-content")
-    ?.getBoundingClientRect();
-  const isTopContentInView = topContentRect?.bottom > 500;
+  const topContentRect = topContentRef.value?.getBoundingClientRect();
+  const isTopContentInView = topContentRect?.bottom > window.innerHeight / 2;
 
   isFooterVisible.value = !isTopContentInView;
   isFabScrollUpHidden.value = !(
@@ -85,13 +94,11 @@ function scrollToTop() {
 
 // Handle Tab Change for Smooth Scroll
 function handleTabChange() {
-  nextTick(() => {
-    // const contentContainer = $refs.contentContainer;
-    const contentContainer = document.querySelector(".content-container");
-    if (contentContainer) {
-      contentContainer.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  });
+  // const contentContainer = $refs.contentContainer;
+  const contentContainer = document.querySelector(".content-container");
+  if (contentContainer) {
+    contentContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 </script>
 
@@ -144,7 +151,7 @@ function handleTabChange() {
 }
 
 .poppins {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.8rem; /* Ukuran subtitle lebih kecil */
 }
 </style>

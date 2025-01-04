@@ -54,7 +54,6 @@
             >
               {{ category }}
             </v-chip>
-
           </div>
           <p class="text-caption blog-pubdate">
             {{ new Date(post.pubDate).toLocaleDateString() }}
@@ -112,6 +111,7 @@ export default {
     // Fungsi untuk mengembalikan excerpt dari deskripsi
     const getExcerpt = (description) => {
       const maxLength = 100; // Batasan karakter
+      // perlukah DOMPurify?
       // Menghapus semua tag HTML
       const textOnly = description.replace(/<[^>]+>/g, "");
       return textOnly.length > maxLength
