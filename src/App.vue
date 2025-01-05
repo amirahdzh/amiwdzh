@@ -21,6 +21,7 @@
       <v-tabs align-tabs="end" color="primary" vertical>
         <v-tab @click="handleTabChange" :to="'/'">Home</v-tab>
         <v-tab @click="handleTabChange" :to="'/project'">Project</v-tab>
+        <v-tab @click="handleTabChange" :to="'/certification'">Certification</v-tab>
         <v-tab @click="handleTabChange" :to="'/blog'">Blog</v-tab>
       </v-tabs>
     </header>
@@ -129,6 +130,12 @@ function handleTabChange() {
   padding-block: 30px;
   border-radius: 12px;
   scroll-margin-top: 50px; /* Tambahkan margin scroll */
+}
+
+@media (max-width: 1280px) {
+  .content-container {
+    margin-top: 20px; /* Jarak antara right-container dan left-container */
+  }
 }
 
 .footer-slide-enter-active,

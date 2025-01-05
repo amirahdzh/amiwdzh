@@ -14,7 +14,15 @@
           dive into my thoughts, insights, and stories.
         </div>
         <p class="add-friend">
-          I usually write on <span class="font-weight-bold text-decoration-none"> <a href="https://www.medium.com" class="text-decoration-none text-on-background"> Medium</a></span>, let's be friend!
+          I usually write on
+          <span class="font-weight-bold text-decoration-none">
+            <a
+              href="https://www.medium.com"
+              class="text-decoration-none text-on-background"
+            >
+              Medium</a
+            ></span
+          >, let's be friend!
           <!-- <v-icon color="primary" size="24px" class="ml-2"
             >mdi-account-plus</v-icon
           > -->
@@ -147,7 +155,11 @@ export default {
     };
 
     const openMediumProfile = () => {
-      window.open("https://medium.com/@amiwdzh", "_blank");
+      window.open(
+        "https://medium.com/@amiwdzh",
+        "_blank",
+        "noopener,noreferrer"
+      );
     };
 
     return {
@@ -155,7 +167,7 @@ export default {
       error,
       isLoading,
       getExcerpt,
-      openMediumProfile
+      openMediumProfile,
     };
   },
 };
