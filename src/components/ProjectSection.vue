@@ -25,12 +25,12 @@
 
   <div class="card-project">
     <!-- Looping untuk setiap item dalam projects -->
-    <div v-for="(project, index) in projects" :key="index">
-      <v-card class="project-card" @click="openLink(project.link)" outlined>
+    <div v-for="(item, index) in project" :key="index">
+      <v-card class="project-card" @click="openLink(item.link)" outlined>
         <div class="img-container">
           <v-img
-            :src="project.thumbnail"
-            alt="Card Image"
+            :src="item.thumbnail"
+            alt="item.title"
             :aspect-ratio="16 / 10"
             cover
             class="project-thumbnail"
@@ -39,16 +39,15 @@
         <div class="card-description">
           <div>
             <v-card-title class="project-title">
-              {{ project.title }}
+              {{ item.title }}
               <!-- <span class="project-title">{{ project.title }}</span> -->
             </v-card-title>
             <v-card-subtitle class="project-subtitle">{{
-              project.description
+              item.category
             }}</v-card-subtitle>
-          </div>  
+          </div>
 
           <div class="arrow-button">→</div>
-          <!-- <div class="arrow-button">></div> -->
         </div>
       </v-card>
     </div>
@@ -56,65 +55,11 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
-
-// Data Projects
-const projects = ref([
-  {
-    id: 1,
-    thumbnail: "images/image.jpg",
-    title: "BookWorld",
-    description: "Web App",
-    link: "https://portfolio-amirahdzh-bookworld.vercel.app/",
-  },
-  {
-    id: 2,
-    thumbnail: "images/project.png",
-    title: "Daarul Ummahaat",
-    description: "Website",
-    link: "https://github.com/amirahdzh/DaarulUmmahaat-FE",
-  },
-  {
-    id: 3,
-    thumbnail: "images/project.png",
-    title: "Skripsi",
-    description: "AI Model",
-    link: "#",
-  },
-  {
-    id: 4,
-    thumbnail: "images/image.jpg",
-    title: "BookWorld",
-    description: "Web App",
-    link: "https://portfolio-amirahdzh-bookworld.vercel.app/",
-  },
-  {
-    id: 5,
-    thumbnail: "images/project.png",
-    title: "Daarul Ummahaat",
-    description: "Website",
-    link: "https://github.com/amirahdzh/DaarulUmmahaat-FE",
-  },
-  {
-    id: 6,
-    thumbnail: "images/project.png",
-    title: "Skripsi",
-    description: "AI Model",
-    link: "#",
-  },
-]);
+import { project } from "@/data/project";
 
 const openLink = (link) => {
   window.open(link, "_blank", "noopener,noreferrer");
 };
-
-// // Navigate to project detail page
-// function goToProjectDetail(projectId) {
-//   router.push({ name: "project-detail", params: { id: projectId } });
-// }
 </script>
 
 <style scoped>
@@ -122,6 +67,7 @@ const openLink = (link) => {
 
 .top-content {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 20px;
   padding: 20px;
@@ -147,16 +93,16 @@ const openLink = (link) => {
   justify-content: center;
   gap: 10px;
   /* color: #666; */
-  font-size: 14px;
-  font-weight: 600;
-  opacity: 0.7;
-  margin: 40px;
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.5;
+  margin-block: 1.5rem;
 }
 
 .section-header hr {
   flex: 1;
   border: none;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid rgb(var(--v-theme-on-background));
 }
 
 .card-project {
@@ -164,7 +110,6 @@ const openLink = (link) => {
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 20px;
 }
 
 .project-card {

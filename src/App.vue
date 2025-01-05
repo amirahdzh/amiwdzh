@@ -142,8 +142,21 @@ function handleTabChange() {
   opacity: 0;
 }
 
-.poppins {
-  font-family: "Poppins", sans-serif;
-  font-size: 0.8rem; /* Ukuran subtitle lebih kecil */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  /* color: #666; */
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.5;
+  margin-block: 1.5rem;
+}
+
+.section-header hr {
+  flex: 1;
+  border: none;
+  border-top: 1px solid rgb(var(--v-theme-on-background));
 }
 </style>

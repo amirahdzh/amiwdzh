@@ -35,9 +35,9 @@
         </div>
         <p class="summary">
           I am a passionate Web Developer with expertise in full-stack
-          development using Laravel and JavaScript Framework. Having earned a Bachelor's
-          degree in Computer Science from UPI. I am proficient in HTML, CSS,
-          JavaScript, and PHP. I specialize in building responsive,
+          development using Laravel and JavaScript Framework. Having earned a
+          Bachelor's degree in Computer Science from UPI. I am proficient in
+          HTML, CSS, JavaScript, and PHP. I specialize in building responsive,
           and user-friendly websites. I am eager to further enhance my skills in
           a collaborative development environment.
         </p>
@@ -76,11 +76,11 @@
       </v-col>
     </v-row>
 
-    <!-- <div class="section-header">
+    <div class="section-header">
       <hr />
       <span>EDUCATION & EXPERIENCE</span>
       <hr />
-    </div> -->
+    </div>
 
     <!-- Education and Experience Section (Two Columns) -->
     <v-row class="section-container" dense>
@@ -142,7 +142,7 @@
           &nbsp;Experience
         </h3>
 
-        <div class="education-container">
+        <div class="experience-container">
           <v-timeline
             align="center"
             side="end"
@@ -272,7 +272,7 @@ const openLink = (link) => {
 }
 
 .left-container {
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   margin-right: 30px;
 }
 
@@ -281,6 +281,12 @@ const openLink = (link) => {
   flex-direction: column;
   justify-content: flex-start;
   /* margin-bottom: 30px; */
+}
+
+@media (max-width: 600px) {
+  .right-container {
+    margin-top: 20px; /* Jarak antara right-container dan left-container */
+  }
 }
 
 .avatar {
@@ -357,12 +363,6 @@ const openLink = (link) => {
   font-size: 1.5rem;
 }
 
-.section-container {
-  /* width: 100%; */
-  /* margin-bottom: 40px; */
-  margin-top: 2rem;
-}
-
 .skills-container {
   margin-bottom: 40px;
 }
@@ -373,6 +373,10 @@ const openLink = (link) => {
 }
 
 .education-container {
+}
+
+.education-container,
+.experience-container {
   margin-left: -20px;
   margin-top: 20px;
   display: flex;
@@ -407,7 +411,7 @@ const openLink = (link) => {
   font-size: 12px;
   font-weight: 700;
   opacity: 0.5;
-  margin: 10px;
+  margin-block: 1.5rem;
 }
 
 .section-header hr {
@@ -426,7 +430,7 @@ const openLink = (link) => {
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .project-card {
