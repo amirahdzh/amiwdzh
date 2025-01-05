@@ -372,9 +372,6 @@ const openLink = (link) => {
   flex-wrap: wrap;
 }
 
-.education-container {
-}
-
 .education-container,
 .experience-container {
   margin-left: -20px;

@@ -1,71 +1,98 @@
 <template>
-  <div class="top-content">
-    <div class="img-top">
-      <v-img
-        src="@/assets/images/image.jpg"
-        alt="SMAN 5 Logo"
-        class="img-top"
-      />
-    </div>
-    <div class="text-content">
-      <div class="text-h1 mb-5">.blog</div>
-      <div class="font-italic mb-5">
-        dive into my thoughts, insights, and stories.
-      </div>
-    </div>
-  </div>
-
-  <div class="separator">
-    <hr />
-    <!-- <span>SOME OF MY LATEST WORK</span> -->
-    <!-- <hr /> -->
-  </div>
-
-  <div class="section-blog">
-    <div v-if="error">{{ error }}</div>
-    <div v-else-if="isLoading" class="skeleton-container">
-      <div v-for="n in 3" :key="n" class="skeleton-item">
-        <v-skeleton-loader
-          type="card"
-          elevation="1"
-          class="mb-4"
-          :loading="true"
+  <div class="blog-container">
+    <div class="top-content">
+      <!-- <div class="img-top">
+        <v-img
+          src="@/assets/images/image.jpg"
+          alt="SMAN 5 Logo"
+          class="img-top"
         />
+      </div> -->
+      <div class="text-content">
+        <div class="text-h1 mb-5">blog.</div>
+        <div class="font-italic mb-5">
+          dive into my thoughts, insights, and stories.
+        </div>
+        <p class="text-caption">
+          I usually write on Medium, let's be friend!
+          <!-- <v-icon color="primary" size="24px" class="ml-2"
+            >mdi-account-plus</v-icon
+          > -->
+        </p>
       </div>
+      <v-card
+        class="card-medium"
+        subtitle="medium.com/@amiwdzh"
+        title="Amiw Dzh"
+        @click="openMediumProfile"
+      >
+        <!-- <template v-slot:append>
+          <v-avatar color="rgb(var(--v-theme-on-background))" size="42" class="mr-2">
+            <img
+              src="/icons/medium.svg"
+              alt="Medium Logo"
+              style="width: 24px; height: 24px"
+            />
+          </v-avatar>
+        </template> -->
+        <template v-slot:prepend>
+          <v-avatar size="42" class="mr-2">
+            <v-img alt="John" src="/images/image.jpg"></v-img>
+          </v-avatar>
+        </template>
+        <!-- <v-card-text
+          >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod.</v-card-text
+        > -->
+      </v-card>
     </div>
-    <ul v-else>
-      <li v-for="post in posts" :key="post.link">
-        <div class="medium-content">
-          <a
-            class="text-h6 font-weight-bold blog-title"
-            :href="post.link"
-            target="_blank"
-            >{{ post.title }}</a
-          >
-          <p
-            class="text-subtitle-3 blog-description"
-            v-html="getExcerpt(post.description)"
-          ></p>
-          <div class="blog-categories">
-            <v-chip
-              v-for="(category, index) in post.categories"
-              :key="index"
-              class="mr-2 my-2"
+
+    <div class="section-blog">
+      <div v-if="error">{{ error }}</div>
+      <div v-else-if="isLoading" class="skeleton-container">
+        <div v-for="n in 3" :key="n" class="skeleton-item">
+          <v-skeleton-loader
+            type="card"
+            elevation="1"
+            class="mb-4"
+            :loading="true"
+          />
+        </div>
+      </div>
+      <ul v-else>
+        <li v-for="post in posts" :key="post.link">
+          <div class="medium-content">
+            <a
+              class="text-h6 font-weight-bold blog-title"
+              :href="post.link"
+              target="_blank"
+              >{{ post.title }}</a
             >
-              {{ category }}
-            </v-chip>
+            <p
+              class="text-subtitle-3 blog-description"
+              v-html="getExcerpt(post.description)"
+            ></p>
+            <div class="blog-categories">
+              <v-chip
+                v-for="(category, index) in post.categories"
+                :key="index"
+                class="mr-2 my-2"
+              >
+                {{ category }}
+              </v-chip>
+            </div>
+            <p class="text-caption blog-pubdate">
+              {{ new Date(post.pubDate).toLocaleDateString() }}
+            </p>
           </div>
-          <p class="text-caption blog-pubdate">
-            {{ new Date(post.pubDate).toLocaleDateString() }}
-          </p>
-        </div>
-        <div class="separator">
-          <hr />
-          <!-- <span>SOME OF MY LATEST WORK</span> -->
-          <!-- <hr /> -->
-        </div>
-      </li>
-    </ul>
+          <div class="separator">
+            <hr />
+            <!-- <span>SOME OF MY LATEST WORK</span> -->
+            <!-- <hr /> -->
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -119,11 +146,16 @@ export default {
         : textOnly;
     };
 
+    const openMediumProfile = () => {
+      window.open("https://medium.com/@amiwdzh", "_blank");
+    };
+
     return {
       posts,
       error,
       isLoading,
       getExcerpt,
+      openMediumProfile
     };
   },
 };
@@ -131,26 +163,49 @@ export default {
 
 <style scoped>
 /* You can add custom styles here */
+.blog-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Kolom kiri lebih kecil */
+  gap: 40px;
+  align-items: start;
+  /* padding: 20px; */
+}
 
 .top-content {
+  position: sticky;
+  top: 4rem; /* Jarak dari atas layar */
   display: flex;
+  flex-direction: column;
   align-items: center;
+  align-self: start; /* Untuk grid alignment */
   gap: 20px;
-  padding: 20px;
+  /* padding: 20px; */
   font-size: 1.2rem;
   justify-content: space-evenly;
   margin-bottom: 40px;
 }
 
+@media (max-width: 768px) {
+  .top-content {
+    position: static; /* Tidak sticky pada layar kecil */
+  }
+}
+
+.card-medium {
+  /* width: 300px; */
+  width: 100%;
+  max-width: 300px;
+}
+
 .text-content {
   display: flex;
   flex-direction: column;
-  align-items: end;
+  /* align-items: end; */
 }
 
 .img-top {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -172,26 +227,8 @@ export default {
   opacity: 0.6;
 }
 
-.separator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  /* color: #666; */
-  font-size: 14px;
-  font-weight: 600;
-  opacity: 0.7;
-  margin-inline: 40px;
-}
-
-.separator hr {
-  flex: 1;
-  border: none;
-  border-top: 1px solid #ccc;
-}
-
 .medium-content {
-  padding: 40px;
+  padding: 20px;
 }
 
 .blog-title {
@@ -202,5 +239,20 @@ export default {
 ul {
   list-style-type: none;
   padding: 0;
+}
+
+.section-blog {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .blog-container {
+    grid-template-columns: 1fr; /* Kolom tunggal di layar kecil */
+  }
+
+  .top-content {
+    margin-bottom: 20px; /* Tambahkan jarak antar elemen */
+  }
 }
 </style>

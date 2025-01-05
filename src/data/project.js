@@ -3,7 +3,7 @@ export const project = [
     thumbnail: "images/project/bookworld.png",
     title: "BookWorld",
     description: "This is a website for book lovers",
-    link: "https://portfolio-amirahdzh-bookworld.vercel.app/",
+    link: "https://github.com/amirahdzh/BookWorld-FE",
     category: "Web App",
   },
   {
@@ -24,7 +24,7 @@ export const project = [
     thumbnail: "images/project.png",
     title: "DU Mobile App",
     description: "this is a mobile app for Daarul Ummahaat",
-    link: "https://github.com/amirahdzh/skripsi",
+    link: "https://github.com/amirahdzh/DU_APP",
     category: "Mobile App",
   },
 ];
