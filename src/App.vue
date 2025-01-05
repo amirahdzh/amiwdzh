@@ -5,14 +5,6 @@
       <Hero />
     </div>
 
-    <!-- FAB untuk ScrollUp -->
-    <!-- <v-fab
-      icon="mdi-chevron-up"
-      color="primary"
-      @click="scrollToTop"
-      class="fab-button-scrollup"
-      :class="{ hidden: isFabScrollUpHidden }"
-    /> -->
     <transition name="scale-transition">
       <v-fab
         v-show="!isFabScrollUpHidden"
@@ -133,10 +125,10 @@ function handleTabChange() {
 }
 
 .content-container {
-  padding: 5%;
-  padding-top: 50px;
-  padding-bottom: 30px;
+  padding-inline: 5%;
+  padding-block: 30px;
   border-radius: 12px;
+  scroll-margin-top: 50px; /* Tambahkan margin scroll */
 }
 
 .footer-slide-enter-active,

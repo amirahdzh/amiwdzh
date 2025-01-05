@@ -4,7 +4,7 @@
 
     <v-row class="welcome-container" no-gutters>
       <!-- Left Column (Deskripsi Diri) -->
-      <v-col cols="12" md="6" class="left-container">
+      <v-col cols="12" sm="12" md="6" lg="6" class="left-container">
         <div class="description">
           <div>
             <v-img
@@ -14,35 +14,31 @@
             />
           </div>
 
-          <div class="description-name">
-            <h1>AMIRAH DZATUL HIMMAH</h1>
+          <div>
+            <p class="description-name">AMIRAH DZATUL HIMMAH</p>
             <p class="text-caption">(Amiw Dzh)</p>
             <h3 class="text-caption">
               Fullstack Web Developer | Writing Enthusiast
             </h3>
-            <!-- Ikon untuk LinkedIn, GitHub, dan Contact Me -->
+            <!-- Render Social Links -->
             <div class="social-icons">
-              <a href="https://www.linkedin.com/in/amirahdzh" target="_blank">
-                <v-icon>mdi-linkedin</v-icon>
-                <!-- LinkedIn Icon -->
-              </a>
-              <a href="https://github.com/amirahdzh" target="_blank">
-                <v-icon>mdi-github</v-icon>
-                <!-- GitHub Icon -->
-              </a>
-              <a href="mailto:amirahdzh@gmail.com">
-                <v-icon>mdi-email</v-icon>
-                <!-- Contact Email Icon -->
+              <a
+                v-for="(social, index) in socialLinks"
+                :key="index"
+                :href="social.url"
+                target="_blank"
+              >
+                <v-icon>{{ social.icon }}</v-icon>
               </a>
             </div>
           </div>
         </div>
         <p class="summary">
           I am a passionate Web Developer with expertise in full-stack
-          development using Laravel and Vue.js. Having earned a Bachelor's
-          degree in Computer Science from UPI, I am proficient in HTML, CSS,
+          development using Laravel and JavaScript Framework. Having earned a Bachelor's
+          degree in Computer Science from UPI. I am proficient in HTML, CSS,
           JavaScript, and PHP. I specialize in building responsive,
-          user-friendly websites and I am eager to further enhance my skills in
+          and user-friendly websites. I am eager to further enhance my skills in
           a collaborative development environment.
         </p>
         <div class="cta">
@@ -66,29 +62,17 @@
 
           <div class="skills-list">
             <v-chip
-              v-for="skill in skills"
-              :key="skill"
+              v-for="(item, index) in skill"
+              :key="index"
               class="skill"
               outlined
-              >{{ skill }}</v-chip
+              >{{ item.name }}</v-chip
             >
           </div>
         </div>
         <div class="empty-space">
           <div class="coming-soon"><i> Hoping to fill it up soon^^</i></div>
         </div>
-        <!-- <div>
-          <h3>General</h3>
-          <div class="skills-list">
-            <v-chip
-              v-for="skill in skills"
-              :key="skill"
-              class="skill"
-              outlined
-              >{{ skill }}</v-chip
-            >
-          </div>
-        </div> -->
       </v-col>
     </v-row>
 
@@ -119,45 +103,30 @@
               dot-color="rgb(var(--v-theme-primary))"
               >...</v-timeline-item
             >
-            <!-- SMAN 5 Depok -->
+            <!-- Render Education -->
             <v-timeline-item
+              v-for="(item, index) in education"
+              :key="index"
               dot-color="rgb(var(--v-theme-primary))"
               size="small"
             >
               <div class="timeline-content">
                 <v-img
-                  src="@/assets/images/image.jpg"
-                  alt="SMAN 5 Logo"
+                  :src="item.logo"
+                  :alt="item.institution"
                   class="timeline-logo"
                 />
                 <div>
-                  <strong>SMAN 5 Depok</strong>
+                  <strong>{{ item.institution }}</strong>
                   <div class="text-caption time">
-                    2017 - 2020 · Science Major
+                    {{ item.duration }} · {{ item.major }}
                   </div>
-                  <div class="text-caption">Math and Computer Science Club</div>
-                  <div class="text-caption">Finalist KMNR 2020</div>
-                </div>
-              </div>
-            </v-timeline-item>
-            <!-- Universitas Pendidikan Indonesia -->
-            <v-timeline-item
-              dot-color="rgb(var(--v-theme-primary))"
-              size="small"
-            >
-              <div class="timeline-content">
-                <v-img
-                  src="@/assets/images/image.jpg"
-                  alt="SMAN 5 Logo"
-                  class="timeline-logo"
-                />
-                <div>
-                  <strong>Universitas Pendidikan Indonesia</strong>
-                  <div class="text-caption time">
-                    2020 - 2024 · Computer Science
-                  </div>
-                  <div class="text-caption">
-                    Google Developer Student Club (GDSC)
+                  <div
+                    v-for="(activity, i) in item.activities"
+                    :key="i"
+                    class="text-caption"
+                  >
+                    {{ activity }}
                   </div>
                 </div>
               </div>
@@ -186,46 +155,33 @@
               dot-color="rgb(var(--v-theme-primary))"
               >...</v-timeline-item
             >
+            <!-- Render Experience -->
             <v-timeline-item
+              v-for="(item, index) in experience"
+              :key="index"
               dot-color="rgb(var(--v-theme-primary))"
               size="small"
             >
               <div class="timeline-content">
                 <v-img
-                  src="@/assets/images/image.jpg"
-                  alt="SMAN 5 Logo"
+                  :src="item.logo"
+                  :alt="item.company"
                   class="timeline-logo"
                 />
                 <div>
-                  <strong>NF Computer</strong>
-                  <div class="text-caption time">Aug - Dec 2022</div>
-                  <div class="text-caption">
-                    Student Mobile App Developer Academy
+                  <strong>{{ item.company }}</strong>
+                  <div class="text-caption time">
+                    {{ item.duration }}
                   </div>
                   <div class="text-caption">
-                    Mobile App Development | Flutter
+                    {{ item.position }}
                   </div>
-                </div>
-              </div>
-            </v-timeline-item>
-            <v-timeline-item
-              dot-color="rgb(var(--v-theme-primary))"
-              size="small"
-            >
-              <div class="timeline-content">
-                <v-img
-                  src="@/assets/images/image.jpg"
-                  alt="SMAN 5 Logo"
-                  class="timeline-logo"
-                />
-                <div>
-                  <strong>Sanber Foundation</strong>
-                  <div class="text-caption time">Jun - Aug 2024</div>
-                  <div class="text-caption">
-                    Awardee Beasiswa Superbootcamp Jabar 2024
-                  </div>
-                  <div class="text-caption">
-                    Fullstack Web Development | Laravel VueJS
+                  <div
+                    v-for="(detail, i) in item.details"
+                    :key="i"
+                    class="text-caption"
+                  >
+                    {{ detail }}
                   </div>
                 </div>
               </div>
@@ -247,11 +203,12 @@
 
     <div class="card-project">
       <!-- Looping untuk setiap item dalam projects -->
-      <div v-for="(project, index) in projects" :key="index">
-        <v-card class="project-card" @click="openLink(project.link)" outlined>
+      <div v-for="(item, index) in project.slice(0, 3)" :key="index">
+        <v-card class="project-card" @click="openLink(item.link)" outlined>
           <div class="img-container">
+            <!-- NOTE | lazy src di <v-img>? -->
             <v-img
-              :src="project.thumbnail"
+              :src="item.thumbnail"
               alt="Card Image"
               :aspect-ratio="16 / 10"
               cover
@@ -261,11 +218,10 @@
           <div class="card-description">
             <div>
               <v-card-title class="project-title">
-                {{ project.title }}
-                <!-- <span class="project-title">{{ project.title }}</span> -->
+                {{ item.title }}
               </v-card-title>
               <v-card-subtitle class="project-subtitle">{{
-                project.description
+                item.category
               }}</v-card-subtitle>
             </div>
 
@@ -279,42 +235,12 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-
-const skills = ref([
-  "HTML",
-  "CSS",
-  "Git",
-  "VueJS",
-  "NodeJS",
-  "ExpressJS",
-  "MySQL",
-  "Laravel",
-  "MongoDB",
-  "Tensorflow",
-]);
-
-// Definisikan array projects dengan thumbnail, title, dan description
-const projects = ref([
-  {
-    thumbnail: "images/image.jpg",
-    title: "BookWorld",
-    description: "Web App",
-    link: "https://portfolio-amirahdzh-bookworld.vercel.app/",
-  },
-  {
-    thumbnail: "images/project.png",
-    title: "Daarul Ummahaat",
-    description: "Website",
-    link: "https://github.com/amirahdzh/DaarulUmmahaat-FE",
-  },
-  {
-    thumbnail: "images/project.png",
-    title: "Skripsi",
-    description: "AI Model",
-    link: "#",
-  },
-]);
+// import { ref } from "vue";
+import { education } from "@/data/education";
+import { experience } from "@/data/experience";
+import { socialLinks } from "@/data/social";
+import { skill } from "@/data/skill";
+import { project } from "@/data/project";
 
 const openLink = (link) => {
   window.open(link, "_blank", "noopener,noreferrer");
@@ -324,15 +250,25 @@ const openLink = (link) => {
 </script>
 
 <style scoped>
-.home-section {
+/* .home-section {
   padding-top: 20px;
-}
+} */
 .welcome-container {
   display: flex;
   justify-content: space-between;
   align-items: start;
   flex-wrap: wrap;
-  padding-left: 2rem;
+}
+
+.description {
+  display: flex;
+  align-items: start; /* Pastikan elemen-elemen berada di tengah secara vertikal */
+  gap: 1.5rem; /* Memberi jarak antara avatar dan deskripsi */
+}
+
+.description-name {
+  font-size: clamp(1.1rem, 3vw, 1.5rem); /* Ukuran font nama dengan clamp */
+  font-weight: 700;
 }
 
 .left-container {
@@ -347,24 +283,19 @@ const openLink = (link) => {
   /* margin-bottom: 30px; */
 }
 
-.description {
-  display: flex;
-  align-items: start; /* Pastikan elemen-elemen berada di tengah secara vertikal */
-  gap: 1rem; /* Memberi jarak antara avatar dan deskripsi */
-  justify-content: start;
-}
-
 .avatar {
   width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 50%; /* Membuat avatar berbentuk bulat */
+  max-width: 100%;
   /* position: absolute; */
 }
 
 .social-icons {
   display: flex;
   gap: 5px; /* Jarak antara ikon */
+  margin-left: -3px;
 }
 
 .social-icons a {
@@ -404,6 +335,7 @@ const openLink = (link) => {
   text-decoration: underline;
   color: rgb(var(--v-theme-primary));
   cursor: pointer;
+  font-weight: 600;
 }
 
 .empty-space {
@@ -421,9 +353,8 @@ const openLink = (link) => {
 .section-title {
   display: flex;
   /* align-items: center; */
-  margin-left: 1.5rem;
+  /* margin-left: 1.5rem; */
   font-size: 1.5rem;
-  font-weight: bold;
 }
 
 .section-container {
@@ -442,6 +373,7 @@ const openLink = (link) => {
 }
 
 .education-container {
+  margin-left: -20px;
   margin-top: 20px;
   display: flex;
   align-items: center;
@@ -476,7 +408,6 @@ const openLink = (link) => {
   font-weight: 700;
   opacity: 0.5;
   margin: 10px;
-  color: rgb(var(--v-theme-on-background));
 }
 
 .section-header hr {
@@ -531,7 +462,6 @@ const openLink = (link) => {
   opacity: 0; /* Transparan awalnya */
   font-size: 1.5rem;
   font-weight: bold;
-  color: rgb(var(--v-theme-on-background));
   transition: opacity 0.5s ease, right 1s ease;
 }
 

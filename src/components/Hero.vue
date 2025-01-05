@@ -1,6 +1,5 @@
 <template>
   <div class="hero-section">
-
     <!-- Canvas untuk petal animasi -->
     <canvas ref="petalCanvas" class="petal-canvas"></canvas>
 
@@ -17,38 +16,46 @@
     <!-- Konten di atas canvas -->
     <div class="hero-content">
       <!-- <h1 class="hero-title">A M I W</h1> -->
-      <!-- Avatar sebagai pengganti teks AMIW -->
-      <div class="avatar-container" @click="scrollToContent"x>
+      <!-- Avatar-->
+      <div class="avatar-container" @click="scrollToContent" x>
         <img
-          src="@/assets/images/image.jpg"
+          src="/images/image.jpg"
           alt="Amiw Avatar"
           class="avatar-image"
         />
       </div>
-      <p class="hero-description">
+      <div class="my-4">
+        <p class="hero-description">FULL-STACK DEVELOPER</p>
+        <p class="typewriter">{{ currentText }}</p>
+      </div>
+      <!-- <p class="hero-description">
+        <p>FULL-STACK DEVELOPER</p>
         <span class="typewriter">{{ currentText }}</span>
-      </p>
-       <!-- <p>Maybe I am a coder?</p> -->
+      </p> -->
+      <!-- <p>Maybe I am a coder?</p> -->
 
       <!-- Ikon Tech Stack -->
       <div class="tech-stack">
-        <v-icon>mdi-react</v-icon> <!-- React Icon -->
-        <v-icon>mdi-vuejs</v-icon> <!-- Vue.js Icon -->
-        <v-icon>mdi-laravel</v-icon> <!-- Laravel Icon -->
-        <v-icon>mdi-nodejs</v-icon> <!-- Express/Node.js Icon -->
-        <v-icon>mdi-database</v-icon> <!-- MySQL / MongoDB Icon -->
+        <v-icon>mdi-react</v-icon>
+        <v-icon>mdi-vuejs</v-icon>
+        <v-icon>mdi-laravel</v-icon>
+        <v-icon>mdi-nodejs</v-icon>
+        <v-icon>mdi-database</v-icon>
       </div>
 
       <!-- Ikon untuk LinkedIn, GitHub, dan Contact Me -->
       <div class="social-icons">
         <a href="https://www.linkedin.com/in/amirahdzh" target="_blank">
-          <v-icon>mdi-linkedin</v-icon>  <!-- LinkedIn Icon -->
+          <v-icon>mdi-linkedin</v-icon>
+          <!-- LinkedIn Icon -->
         </a>
         <a href="https://github.com/amirahdzh" target="_blank">
-          <v-icon>mdi-github</v-icon>    <!-- GitHub Icon -->
+          <v-icon>mdi-github</v-icon>
+          <!-- GitHub Icon -->
         </a>
         <a href="mailto:amirahdzh@gmail.com">
-          <v-icon>mdi-email</v-icon>      <!-- Contact Email Icon -->
+          <v-icon>mdi-email</v-icon>
+          <!-- Contact Email Icon -->
         </a>
       </div>
 
@@ -81,7 +88,7 @@ function toggleTheme() {
 const petalCanvas = ref(null);
 
 // Data teks yang akan ditampilkan
-const textArray = ["WRITING ENTHUSIAST", "FULL-STACK DEVELOPER"];
+const textArray = ["and self-proclaimed writer, LOL XD"];
 const currentText = ref("");
 const currentIndex = ref(0);
 
@@ -111,7 +118,7 @@ const typeText = (text, callback) => {
       clearInterval(typingInterval);
       setTimeout(callback, 500);
     }
-  }, 150);
+  }, 50);
 };
 
 // Fungsi untuk menghapus teks
@@ -124,9 +131,8 @@ const deleteText = (text, callback) => {
       clearInterval(deletingInterval);
       setTimeout(callback, 200);
     }
-  }, 100);
+  }, 50);
 };
-
 
 // Fungsi untuk animasi petal
 const startPetalAnimation = () => {
@@ -278,22 +284,26 @@ const scrollToContent = () => {
 }
 
 .hero-description {
-  font-size: clamp(2rem, 5vw, 3rem);
-  display: inline-block;
-  font-family: "Courier New", Courier, monospace;
+  /* font-size: clamp(2rem, 5vw, 3rem); */
+  font-size: clamp(1.3rem, 3vw, 3rem);
+  /* display: inline-block; */
   position: relative;
   /* min-height: 5rem; */
-  align-items: center;
-  font-weight: 900;
+  /* align-items: center; */
+  font-weight: 700;
+  
 }
 
 .typewriter {
   display: inline-block;
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-family: "Courier New", Courier, monospace;
+  font-size: clamp(0.8rem, 1.5vw, 3rem);
   color: rgb(var(--v-theme-primary));
   overflow: hidden;
   white-space: nowrap;
   border-right: 0.1rem solid rgb(var(--v-theme-primary));
+  font-weight: 900;
+  /* margin-bottom: 1rem; */
 }
 
 .scroll-indicator {
@@ -369,13 +379,13 @@ const scrollToContent = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   /* border: 4px solid rgb(var(--v-theme-on-background)); */
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   cursor: pointer;
 }
 
@@ -392,7 +402,7 @@ const scrollToContent = () => {
   align-items: center;
   /* margin-top: 20px; */
   gap: 15px;
-  font-size: clamp(1.5rem, 3vw, 2.5rem);  /* Ukuran font responsif */
+  font-size: clamp(1.5rem, 3vw, 2.5rem); /* Ukuran font responsif */
   /* font-size: 2rem; */
   color: rgb(var(--v-theme-on-background));
   /* margin-bottom: 2rem; */
@@ -420,11 +430,11 @@ const scrollToContent = () => {
   border: 1px solid rgb(var(--v-theme-primary));
   border-radius: 10px;
   padding: 10px;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2); */
 }
 
 .social-icons a {
-  color: inherit; 
+  color: inherit;
   transition: transform 0.3s ease-in-out;
 }
 
