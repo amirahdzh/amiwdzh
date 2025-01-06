@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeSection from "@/components/HomeSection.vue";
 import ProjectSection from "@/components/ProjectSection.vue";
 import BlogSection from "@/components/BlogSection.vue";
+import CertiSection from "@/components/CertiSection.vue";
 
 let isFirstLoad = true; // Flag in memory to track first load
 
@@ -9,6 +10,7 @@ const routes = [
   { path: "/", name: "Home", component: HomeSection },
   { path: "/project", name: "Project", component: ProjectSection },
   { path: "/blog", name: "Blog", component: BlogSection },
+  { path: "/certification", name: "Blog", component: CertiSection },
 ];
 
 const router = createRouter({

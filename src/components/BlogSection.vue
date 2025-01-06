@@ -188,25 +188,25 @@ export default {
   top: 4rem; /* Jarak dari atas layar */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  align-self: start; /* Untuk grid alignment */
+  /* align-items: center; */
+  align-self: start; 
   gap: 20px;
   /* padding: 20px; */
   font-size: 1.2rem;
-  justify-content: space-evenly;
   margin-bottom: 40px;
 }
 
 @media (max-width: 768px) {
   .top-content {
     position: static; /* Tidak sticky pada layar kecil */
+    align-items: center;
   }
 }
 
 .card-medium {
   /* width: 300px; */
   width: 100%;
-  max-width: 300px;
+  max-width: 275px;
 }
 
 .text-content {
