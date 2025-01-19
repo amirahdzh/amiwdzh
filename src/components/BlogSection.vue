@@ -1,13 +1,6 @@
 <template>
   <div class="blog-container">
     <div class="top-content">
-      <!-- <div class="img-top">
-        <v-img
-          src="@/assets/images/image.jpg"
-          alt="SMAN 5 Logo"
-          class="img-top"
-        />
-      </div> -->
       <div class="text-content">
         <div class="text-h1 mb-5">blog.</div>
         <div class="font-italic mb-5">
@@ -23,9 +16,6 @@
               Medium</a
             ></span
           >, let's be friend!
-          <!-- <v-icon color="primary" size="24px" class="ml-2"
-            >mdi-account-plus</v-icon
-          > -->
         </p>
       </div>
       <v-card
@@ -34,28 +24,31 @@
         title="Amiw Dzh"
         @click="openMediumProfile"
       >
-        <!-- <template v-slot:append>
-          <v-avatar color="rgb(var(--v-theme-on-background))" size="42" class="mr-2">
-            <img
-              src="/icons/medium.svg"
-              alt="Medium Logo"
-              style="width: 24px; height: 24px"
-            />
-          </v-avatar>
-        </template> -->
         <template v-slot:prepend>
           <v-avatar size="42" class="mr-2">
             <v-img alt="John" src="/images/image.jpg"></v-img>
           </v-avatar>
         </template>
-        <!-- <v-card-text
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod.</v-card-text
-        > -->
       </v-card>
     </div>
 
     <div class="section-blog">
+      <!-- Filter kategori -->
+      <div class="category-filter">
+        <v-chip
+          v-for="category in allCategories"
+          :key="category"
+          :class="{ active: selectedCategory === category }"
+          @click="handleCategoryClick(category)"
+          class="category-chip"
+        >
+          {{ category }}
+        </v-chip>
+      </div>
+      <div class="separator">
+        <hr />
+      </div>
+
       <div v-if="error">{{ error }}</div>
       <div v-else-if="isLoading" class="skeleton-container">
         <div v-for="n in 3" :key="n" class="skeleton-item">
@@ -68,7 +61,7 @@
         </div>
       </div>
       <ul v-else>
-        <li v-for="post in posts" :key="post.link">
+        <li v-for="post in filteredPosts" :key="post.link">
           <div class="medium-content">
             <a
               class="text-h6 font-weight-bold blog-title"
@@ -95,8 +88,6 @@
           </div>
           <div class="separator">
             <hr />
-            <!-- <span>SOME OF MY LATEST WORK</span> -->
-            <!-- <hr /> -->
           </div>
         </li>
       </ul>
@@ -105,7 +96,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 
 export default {
   name: "BlogSection",
@@ -113,6 +104,10 @@ export default {
     const posts = ref([]);
     const error = ref(null);
     const isLoading = ref(true); // Menambahkan status loading
+    const selectedCategory = ref("All"); // Set default kategori ke "All"
+
+    // Daftar kategori yang ingin ditampilkan
+    const allowedCategories = ["technology", "story", "poetry", "inspiration", "islam"];
 
     // Fungsi untuk mengambil feed RSS menggunakan API RSS2JSON
     const fetchRSSFeed = async () => {
@@ -142,18 +137,25 @@ export default {
     };
 
     // Panggil fetchRSSFeed saat komponen dimuat
-    onMounted(fetchRSSFeed);
+    onMounted(() => {
+      // Cek kategori yang disimpan di localStorage
+      const savedCategory = localStorage.getItem("selectedCategory");
+      if (savedCategory) {
+        selectedCategory.value = savedCategory;
+      }
+      fetchRSSFeed();
+    });
+
     // Fungsi untuk mengembalikan excerpt dari deskripsi
     const getExcerpt = (description) => {
       const maxLength = 100; // Batasan karakter
-      // perlukah DOMPurify?
-      // Menghapus semua tag HTML
-      const textOnly = description.replace(/<[^>]+>/g, "");
+      const textOnly = description.replace(/<[^>]+>/g, ""); // Menghapus HTML
       return textOnly.length > maxLength
         ? textOnly.slice(0, maxLength) + "..."
         : textOnly;
     };
 
+    // Fungsi untuk membuka profil Medium
     const openMediumProfile = () => {
       window.open(
         "https://medium.com/@amiwdzh",
@@ -162,12 +164,45 @@ export default {
       );
     };
 
+    // Mengambil hanya kategori yang diizinkan
+    const allCategories = computed(() => {
+      const categories = new Set();
+      posts.value.forEach((post) => {
+        post.categories.forEach((category) => {
+          if (allowedCategories.includes(category)) {
+            categories.add(category);
+          }
+        });
+      });
+      return ["All", ...Array.from(categories)];
+    });
+
+    // Filter postingan berdasarkan kategori yang dipilih
+    const filteredPosts = computed(() => {
+      if (selectedCategory.value === "All") {
+        return posts.value;
+      }
+      return posts.value.filter((post) =>
+        post.categories.includes(selectedCategory.value)
+      );
+    });
+
+    // Menyimpan kategori yang dipilih ke localStorage
+    const handleCategoryClick = (category) => {
+      selectedCategory.value = category;
+      localStorage.setItem("selectedCategory", category); // Simpan kategori yang dipilih
+    };
+
     return {
       posts,
       error,
       isLoading,
       getExcerpt,
       openMediumProfile,
+      allCategories,
+      selectedCategory,
+      filteredPosts,
+      handleCategoryClick,
     };
   },
 };
@@ -180,7 +215,7 @@ export default {
   grid-template-columns: 1fr 2fr; /* Kolom kiri lebih kecil */
   gap: 40px;
   align-items: start;
-  /* padding: 20px; */
+  min-height: 100vh;
 }
 
 .top-content {
@@ -188,10 +223,7 @@ export default {
   top: 4rem; /* Jarak dari atas layar */
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  align-self: start; 
   gap: 20px;
-  /* padding: 20px; */
   font-size: 1.2rem;
   margin-bottom: 40px;
 }
@@ -204,7 +236,6 @@ export default {
 }
 
 .card-medium {
-  /* width: 300px; */
   width: 100%;
   max-width: 275px;
 }
@@ -212,20 +243,11 @@ export default {
 .text-content {
   display: flex;
   flex-direction: column;
-  /* align-items: end; */
-}
-
-.img-top {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 50%;
 }
 
 .blog-description {
   overflow: hidden;
   text-overflow: ellipsis;
-  /* white-space: nowrap; */
   opacity: 0.8;
 }
 
@@ -262,13 +284,30 @@ ul {
   font-size: medium;
 }
 
+/* Styling for filter */
+.category-filter {
+  margin-left: 15px;
+  margin-bottom: 20px;
+}
+
+.category-chip {
+  /* margin: 5px; */
+  margin-top: 5px;
+}
+
+.category-filter .v-chip {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.category-filter .v-chip.active {
+  background-color: rgb(var(--v-theme-primary));
+  color: rgb(var(--v-theme-background));
+}
+
 @media (max-width: 768px) {
   .blog-container {
     grid-template-columns: 1fr; /* Kolom tunggal di layar kecil */
-  }
-
-  .top-content {
-    margin-bottom: 20px; /* Tambahkan jarak antar elemen */
   }
 }
 </style>
