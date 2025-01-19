@@ -215,7 +215,6 @@ export default {
   grid-template-columns: 1fr 2fr; /* Kolom kiri lebih kecil */
   gap: 40px;
   align-items: start;
-  min-height: 100vh;
 }
 
 .top-content {

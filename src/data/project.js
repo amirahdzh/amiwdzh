@@ -1,5 +1,12 @@
 export const project = [
   {
+    thumbnail: "images/project/simplebank.png",
+    title: "Simple Bank",
+    description: "This is a web server for simple bank using PostgreSQL, Docker, Redis, Gin, gRPC, AWS, dan CI/CD",
+    link: "https://github.com/amirahdzh/simple-bank",
+    category: "Web Server",
+  },
+  {
     thumbnail: "images/project/bookworld.png",
     title: "BookWorld",
     description: "This is a website for book lovers",

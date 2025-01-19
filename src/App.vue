@@ -126,6 +126,7 @@ function handleTabChange() {
 }
 
 .content-container {
+  min-height: 100vh;
   padding-inline: 5%;
   padding-block: 30px;
   border-radius: 12px;
