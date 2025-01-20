@@ -35,29 +35,26 @@
       <!-- <p>Maybe I am a coder?</p> -->
 
       <!-- Ikon Tech Stack -->
-      <div class="tech-stack">
+      <!-- <div class="tech-stack">
         <v-icon>mdi-react</v-icon>
         <v-icon>mdi-vuejs</v-icon>
         <v-icon>mdi-laravel</v-icon>
         <v-icon>mdi-nodejs</v-icon>
         <v-icon>mdi-database</v-icon>
-      </div>
+      </div> -->
 
       <!-- Ikon untuk LinkedIn, GitHub, dan Contact Me -->
-      <div class="social-icons">
+      <!-- <div class="social-icons">
         <a href="https://www.linkedin.com/in/amirahdzh" target="_blank">
           <v-icon>mdi-linkedin</v-icon>
-          <!-- LinkedIn Icon -->
         </a>
         <a href="https://github.com/amirahdzh" target="_blank">
           <v-icon>mdi-github</v-icon>
-          <!-- GitHub Icon -->
         </a>
         <a href="mailto:amirahdzh@gmail.com">
           <v-icon>mdi-email</v-icon>
-          <!-- Contact Email Icon -->
         </a>
-      </div>
+      </div> -->
 
       <div class="scroll-indicator" @click="scrollToContent">
         <button class="circle-button">
@@ -285,7 +282,7 @@ const scrollToContent = () => {
 
 .hero-description {
   /* font-size: clamp(2rem, 5vw, 3rem); */
-  font-size: clamp(1.3rem, 3vw, 3rem);
+  font-size: clamp(1.5rem, 3vw, 3rem);
   /* display: inline-block; */
   position: relative;
   /* min-height: 5rem; */
@@ -297,7 +294,7 @@ const scrollToContent = () => {
 .typewriter {
   display: inline-block;
   font-family: "Courier New", Courier, monospace;
-  font-size: clamp(0.8rem, 1.5vw, 3rem);
+  font-size: clamp(1rem, 1.5vw, 3rem);
   color: rgb(var(--v-theme-primary));
   overflow: hidden;
   white-space: nowrap;
@@ -314,7 +311,7 @@ const scrollToContent = () => {
   color: rgb(var(--v-theme-on-background));
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   animation: bounce 2s infinite;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
 }
 
 @keyframes bounce {
@@ -379,13 +376,12 @@ const scrollToContent = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
-  height: 100px;
-  /* border: 4px solid rgb(var(--v-theme-on-background)); */
+  width: 20vw; /* Lebar responsif berdasarkan viewport */
+  max-width: 150px; /* Lebar maksimal */
+  min-width: 100px; /* Lebar minimal */
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* margin-bottom: 1rem; */
   cursor: pointer;
 }
 

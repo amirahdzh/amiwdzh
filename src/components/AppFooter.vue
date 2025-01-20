@@ -1,34 +1,37 @@
 <template>
-  <v-footer height="42" app>
-    <v-btn
-      icon
-      @click="toggleTheme"
-      class="theme-toggle-btn mx-2 mb-2"
-      :color="currentColor"
-      :title="'Toggle Theme'"
-    >
-      <v-icon :icon="currentIcon" />
-    </v-btn>
-    <a
-      v-for="item in items"
-      :key="item.title"
-      :href="item.href"
-      :title="item.title"
-      class="d-inline-block mx-2 social-link"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <v-icon :icon="item.icon" :size="item.icon === '$vuetify' ? 30 : 20" />
-    </a>
+  <div class="footer">
+    <v-footer height="42" app>
+      <v-btn
+        icon
+        @click="toggleTheme"
+        class="theme-toggle-btn mx-2 mb-2"
+        :color="currentColor"
+        :title="'Toggle Theme'"
+      >
+        <v-icon :icon="currentIcon" />
+      </v-btn>
+      <a
+        v-for="item in items"
+        :key="item.title"
+        :href="item.href"
+        :title="item.title"
+        class="d-inline-block mx-2 social-link"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <v-icon :icon="item.icon" :size="item.icon === '$vuetify' ? 30 : 20" />
+      </a>
 
-    <div
-      class="text-caption text-disabled"
-      style="position: absolute; right: 20px"
-    >
-      &copy;
-      <span class="d-none d-sm-inline-block">Created with 💖 by </span> Amiw 🌺
-    </div>
-  </v-footer>
+      <div
+        class="text-caption text-disabled"
+        style="position: absolute; right: 20px"
+      >
+        &copy;
+        <span class="d-none d-sm-inline-block">Created with 💖 by </span> Amiw
+        🌺
+      </div>
+    </v-footer>
+  </div>
 </template>
 
 <script setup>
@@ -98,6 +101,14 @@ const items = [
 </script>
 
 <style scoped>
+.footer {
+  display: flex;
+  justify-content: space-between; /* Mengatur jarak antar elemen */
+  align-items: center; /* Menyelaraskan elemen secara vertikal */
+  max-width: 1200px; /* Batas lebar maksimal */
+  margin-inline: auto; /* Memastikan footer berada di tengah */
+  padding-inline: 20px; /* Memberikan jarak padding horizontal */
+}
 .social-link .v-icon {
   color: rgba(var(--v-theme-on-background), var(--v-disabled-opacity));
   text-decoration: none;

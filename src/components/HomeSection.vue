@@ -34,12 +34,12 @@
           </div>
         </div>
         <p class="summary">
-          I am a passionate Web Developer with expertise in full-stack
-          development using Laravel and JavaScript Framework. Having earned a
-          Bachelor's degree in Computer Science from UPI. I am proficient in
-          HTML, CSS, JavaScript, and PHP. I specialize in building responsive,
-          and user-friendly websites. I am eager to further enhance my skills in
-          a collaborative development environment.
+          Hi there! I’m Amiw (Amirah Dzatul Himmah) – a full-stack developer who
+          enjoys both back-end and front-end work, with a stronger passion for
+          back-end development. I love creating reliable server-side features
+          and ensuring seamless connections between the front-end and back-end.
+          Outside of coding, I express my creativity through writing – whether
+          it’s poetry, blogging, or storytelling.
         </p>
         <div class="cta">
           <!-- <div class="cv">CV</div> -->
@@ -76,125 +76,6 @@
       </v-col>
     </v-row>
 
-    <div class="section-header">
-      <hr />
-      <span>EDUCATION & EXPERIENCE</span>
-      <hr />
-    </div>
-
-    <!-- Education and Experience Section (Two Columns) -->
-    <v-row class="section-container" dense>
-      <!-- Education Column -->
-      <v-col cols="12" md="6" sm="6">
-        <h3 class="section-title">
-          <v-icon color="primary" class="mr-2">mdi-school</v-icon>
-          &nbsp;Education
-        </h3>
-
-        <div class="education-container">
-          <v-timeline
-            align="center"
-            side="end"
-            direction="vertical"
-            truncate-line="end"
-          >
-            <v-timeline-item
-              size="x-small"
-              dot-color="rgb(var(--v-theme-primary))"
-              >...</v-timeline-item
-            >
-            <!-- Render Education -->
-            <v-timeline-item
-              v-for="(item, index) in education"
-              :key="index"
-              dot-color="rgb(var(--v-theme-primary))"
-              size="small"
-            >
-              <div class="timeline-content">
-                <v-img
-                  :src="item.logo"
-                  :alt="item.institution"
-                  class="timeline-logo"
-                />
-                <div>
-                  <strong>{{ item.institution }}</strong>
-                  <div class="text-caption time">
-                    {{ item.duration }} · {{ item.major }}
-                  </div>
-                  <div
-                    v-for="(activity, i) in item.activities"
-                    :key="i"
-                    class="text-caption"
-                  >
-                    {{ activity }}
-                  </div>
-                </div>
-              </div>
-            </v-timeline-item>
-          </v-timeline>
-        </div>
-      </v-col>
-
-      <!-- Experience Column -->
-      <v-col cols="12" md="6" sm="6">
-        <h3 class="section-title">
-          <v-icon color="primary" class="mr-2">mdi-briefcase</v-icon>
-          &nbsp;Experience
-        </h3>
-
-        <div class="experience-container">
-          <v-timeline
-            align="center"
-            side="end"
-            direction="vertical"
-            truncate-line="end"
-            class="custom-timeline"
-          >
-            <v-timeline-item
-              size="x-small"
-              dot-color="rgb(var(--v-theme-primary))"
-              >...</v-timeline-item
-            >
-            <!-- Render Experience -->
-            <v-timeline-item
-              v-for="(item, index) in experience"
-              :key="index"
-              dot-color="rgb(var(--v-theme-primary))"
-              size="small"
-            >
-              <div class="timeline-content">
-                <v-img
-                  :src="item.logo"
-                  :alt="item.company"
-                  class="timeline-logo"
-                />
-                <div>
-                  <strong>{{ item.company }}</strong>
-                  <div class="text-caption time">
-                    {{ item.duration }}
-                  </div>
-                  <div class="text-caption">
-                    {{ item.position }}
-                  </div>
-                  <div
-                    v-for="(detail, i) in item.details"
-                    :key="i"
-                    class="text-caption"
-                  >
-                    {{ detail }}
-                  </div>
-                </div>
-              </div>
-            </v-timeline-item>
-            <v-timeline-item
-              size="x-small"
-              dot-color="rgb(var(--v-theme-primary))"
-              ><i> ...Looking for a new opportunity</i></v-timeline-item
-            >
-          </v-timeline>
-        </div>
-      </v-col>
-    </v-row>
     <div class="section-header">
       <hr />
       <span>SOME OF MY LATEST WORK</span>

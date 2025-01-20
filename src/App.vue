@@ -127,17 +127,19 @@ function handleTabChange() {
 
 .content-container {
   min-height: 100vh;
-  padding-inline: 5%;
+  margin-inline: auto; /* Memastikan elemen berada di tengah */
   padding-block: 30px;
-  border-radius: 12px;
+  max-width: 1200px; /* Menentukan lebar maksimal */
+  margin-inline: auto; /* Memastikan elemen berada di tengah */
+  padding-inline: 5%; /* Tambahkan padding agar konten tidak menempel di tepi */
   scroll-margin-top: 50px; /* Tambahkan margin scroll */
 }
 
-@media (max-width: 1280px) {
+/* @media (min-width: 1280px) {
   .content-container {
-    margin-top: 20px; /* Jarak antara right-container dan left-container */
+    margin-inline: 10%;
   }
-}
+} */
 
 .footer-slide-enter-active,
 .footer-slide-leave-active {

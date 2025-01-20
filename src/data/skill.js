@@ -32,11 +32,27 @@ export const skill = [
     category: "General",
   },
   {
-    name: "MongoDB",
+    name: "PostgreSQL",
     category: "General",
   },
   {
-    name: "Tensorflow",
+    name: "Go",
     category: "General",
   },
+  {
+    name: "Docker",
+    category: "General",
+  },
+  {
+    name: "Gin",
+    category: "General",
+  },
+  // {
+  //   name: "MongoDB",
+  //   category: "General",
+  // },
+  // {
+  //   name: "Tensorflow",
+  //   category: "General",
+  // },
 ];
