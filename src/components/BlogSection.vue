@@ -152,6 +152,11 @@ const filteredPosts = computed(() =>
       )
 );
 
+const getMediumImage = (description) => {
+  const imageMatch = description.match(/<img.*?src=["'](.*?)["']/);
+  return imageMatch ? imageMatch[1] : DEFAULT_THUMBNAIL;
+};
+
 // Methods
 const getExcerpt = (text) => {
   const clean = text.replace(/<[^>]+>/g, "");
@@ -172,7 +177,7 @@ onMounted(async () => {
         description: item.content,
         pubDate: item.pubDate,
         categories: item.categories,
-        thumbnail: item.thumbnail || DEFAULT_THUMBNAIL,
+        thumbnail: item.thumbnail || getMediumImage(item.description),
       }));
     }
   } catch (e) {
