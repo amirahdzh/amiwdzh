@@ -26,7 +26,7 @@
       >
         <template v-slot:prepend>
           <v-avatar size="42" class="mr-2">
-            <v-img alt="John" src="/images/image.jpg"></v-img>
+            <v-img alt="Amiw Ava" src="/images/image.jpg"></v-img>
           </v-avatar>
         </template>
       </v-card>
@@ -63,149 +63,124 @@
       <ul v-else>
         <li v-for="post in filteredPosts" :key="post.link">
           <div class="medium-content">
-            <a
-              class="text-h6 font-weight-bold blog-title"
-              :href="post.link"
-              target="_blank"
-              >{{ post.title }}</a
-            >
-            <p
-              class="text-subtitle-3 blog-description"
-              v-html="getExcerpt(post.description)"
-            ></p>
-            <div class="blog-categories">
-              <v-chip
-                v-for="(category, index) in post.categories"
-                :key="index"
-                class="mr-2 my-2"
-              >
-                {{ category }}
-              </v-chip>
+            <div class="article-grid">
+              <div class="article-content">
+                <a
+                  class="text-h6 font-weight-bold blog-title"
+                  :href="post.link"
+                  target="_blank"
+                >
+                  {{ post.title }}
+                </a>
+
+                <p
+                  class="text-subtitle-3 blog-description"
+                  v-html="getExcerpt(post.description)"
+                ></p>
+
+                <div class="blog-categories">
+                  <v-chip
+                    v-for="(category, index) in post.categories"
+                    :key="index"
+                    class="mr-2 my-2"
+                  >
+                    {{ category }}
+                  </v-chip>
+                </div>
+
+                <p class="text-caption blog-pubdate">
+                  {{ new Date(post.pubDate).toLocaleDateString() }}
+                </p>
+              </div>
+
+              <div class="article-thumbnail">
+                <img
+                  v-if="post.thumbnail"
+                  :src="post.thumbnail"
+                  alt="Thumbnail"
+                  class="blog-thumbnail"
+                />
+              </div>
             </div>
-            <p class="text-caption blog-pubdate">
-              {{ new Date(post.pubDate).toLocaleDateString() }}
-            </p>
           </div>
-          <div class="separator">
-            <hr />
-          </div>
+          <div class="separator"><hr /></div>
         </li>
       </ul>
     </div>
   </div>
 </template>
 
-<script>
+<
+<script setup>
 import { ref, computed, onMounted } from "vue";
 
-export default {
-  name: "BlogSection",
-  setup() {
-    const posts = ref([]);
-    const error = ref(null);
-    const isLoading = ref(true); // Menambahkan status loading
-    const selectedCategory = ref("All"); // Set default kategori ke "All"
+// State
+const posts = ref([]);
+const error = ref(null);
+const isLoading = ref(true);
+const selectedCategory = ref("All");
 
-    // Daftar kategori yang ingin ditampilkan
-    const allowedCategories = ["technology", "story", "poetry", "inspiration", "islam"];
+// Constants
+const MEDIUM_URL = "https://medium.com/@amiwdzh";
+const RSS_API_URL =
+  "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40amiwdzh";
+const DEFAULT_THUMBNAIL = "/images/image.jpg";
+const ALLOWED_CATEGORIES = [
+  "technology",
+  "story",
+  "poetry",
+  "inspiration",
+  "islam",
+];
 
-    // Fungsi untuk mengambil feed RSS menggunakan API RSS2JSON
-    const fetchRSSFeed = async () => {
-      const apiUrl =
-        "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40amiwdzh";
-      try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-
-        if (data.status === "ok") {
-          // Mengonversi data yang diterima menjadi format yang lebih mudah digunakan
-          posts.value = data.items.map((item) => ({
-            title: item.title,
-            link: item.link,
-            description: item.content,
-            pubDate: item.pubDate,
-            categories: item.categories,
-          }));
-          isLoading.value = false;
-        } else {
-          error.value = "Failed to fetch RSS feed.";
-        }
-      } catch (err) {
-        error.value = "Failed to fetch RSS feed.";
-        console.error(err);
-      }
-    };
-
-    // Panggil fetchRSSFeed saat komponen dimuat
-    onMounted(() => {
-      // Cek kategori yang disimpan di localStorage
-      const savedCategory = localStorage.getItem("selectedCategory");
-      if (savedCategory) {
-        selectedCategory.value = savedCategory;
-      }
-      fetchRSSFeed();
+// Computed
+const allCategories = computed(() => {
+  const categories = new Set();
+  posts.value.forEach((post) => {
+    post.categories.forEach((category) => {
+      if (ALLOWED_CATEGORIES.includes(category)) categories.add(category);
     });
+  });
+  return ["All", ...Array.from(categories)];
+});
 
-    // Fungsi untuk mengembalikan excerpt dari deskripsi
-    const getExcerpt = (description) => {
-      const maxLength = 100; // Batasan karakter
-      const textOnly = description.replace(/<[^>]+>/g, ""); // Menghapus HTML
-      return textOnly.length > maxLength
-        ? textOnly.slice(0, maxLength) + "..."
-        : textOnly;
-    };
-
-    // Fungsi untuk membuka profil Medium
-    const openMediumProfile = () => {
-      window.open(
-        "https://medium.com/@amiwdzh",
-        "_blank",
-        "noopener,noreferrer"
-      );
-    };
-
-    // Mengambil hanya kategori yang diizinkan
-    const allCategories = computed(() => {
-      const categories = new Set();
-      posts.value.forEach((post) => {
-        post.categories.forEach((category) => {
-          if (allowedCategories.includes(category)) {
-            categories.add(category);
-          }
-        });
-      });
-      return ["All", ...Array.from(categories)];
-    });
-
-    // Filter postingan berdasarkan kategori yang dipilih
-    const filteredPosts = computed(() => {
-      if (selectedCategory.value === "All") {
-        return posts.value;
-      }
-      return posts.value.filter((post) =>
+const filteredPosts = computed(() =>
+  selectedCategory.value === "All"
+    ? posts.value
+    : posts.value.filter((post) =>
         post.categories.includes(selectedCategory.value)
-      );
-    });
+      )
+);
 
-    // Menyimpan kategori yang dipilih ke localStorage
-    const handleCategoryClick = (category) => {
-      selectedCategory.value = category;
-      localStorage.setItem("selectedCategory", category); // Simpan kategori yang dipilih
-    };
-
-    return {
-      posts,
-      error,
-      isLoading,
-      getExcerpt,
-      openMediumProfile,
-      allCategories,
-      selectedCategory,
-      filteredPosts,
-      handleCategoryClick,
-    };
-  },
+// Methods
+const getExcerpt = (text) => {
+  const clean = text.replace(/<[^>]+>/g, "");
+  return clean.length > 100 ? clean.slice(0, 100) + "..." : clean;
 };
+
+const openMediumProfile = () => window.open(MEDIUM_URL, "_blank");
+
+// Lifecycle
+onMounted(async () => {
+  try {
+    const response = await fetch(RSS_API_URL);
+    const data = await response.json();
+    if (data.status === "ok") {
+      posts.value = data.items.map((item) => ({
+        title: item.title,
+        link: item.link,
+        description: item.content,
+        pubDate: item.pubDate,
+        categories: item.categories,
+        thumbnail: item.thumbnail || DEFAULT_THUMBNAIL,
+      }));
+    }
+  } catch (e) {
+    error.value = "Failed to load posts";
+  } finally {
+    isLoading.value = false;
+  }
+});
 </script>
 
 <style scoped>
@@ -304,9 +279,55 @@ ul {
   color: rgb(var(--v-theme-background));
 }
 
+.blog-thumbnail {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.article-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.article-content {
+  order: 1;
+}
+
+.article-thumbnail {
+  order: 2;
+}
+
+.blog-thumbnail {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
 @media (max-width: 768px) {
   .blog-container {
     grid-template-columns: 1fr; /* Kolom tunggal di layar kecil */
+  }
+
+  .article-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .article-content {
+    order: 2;
+  }
+
+  .article-thumbnail {
+    order: 1;
+  }
+
+  .blog-thumbnail {
+    height: 180px;
   }
 }
 </style>

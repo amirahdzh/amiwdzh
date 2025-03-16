@@ -18,11 +18,7 @@
       <!-- <h1 class="hero-title">A M I W</h1> -->
       <!-- Avatar-->
       <div class="avatar-container" @click="scrollToContent" x>
-        <img
-          src="/images/image.jpg"
-          alt="Amiw Avatar"
-          class="avatar-image"
-        />
+        <img src="/images/image.jpg" alt="Amiw Avatar" class="avatar-image" />
       </div>
       <div class="my-4">
         <p class="hero-description">FULL-STACK DEVELOPER</p>
@@ -139,16 +135,14 @@ const startPetalAnimation = () => {
   canvas.height = window.innerHeight;
 
   const TOTAL = 30;
-  const petalArray = [];
+  const petals = [];
   const petalImg = new Image();
   petalImg.src = "https://djjjk9bjm164h.cloudfront.net/petal.png";
 
-  petalImg.addEventListener("load", () => {
-    for (let i = 0; i < TOTAL; i++) {
-      petalArray.push(new Petal());
-    }
-    render(petalArray, ctx);
-  });
+  petalImg.onload = () => {
+    for (let i = 0; i < TOTAL; i++) petals.push(new Petal());
+    render();
+  };
 
   class Petal {
     constructor() {
@@ -156,23 +150,25 @@ const startPetalAnimation = () => {
     }
 
     reset() {
-      const scaleFactor = Math.min(canvas.width, canvas.height) / 1000;
-      this.w = (25 + Math.random() * 15) * scaleFactor;
-      this.h = (20 + Math.random() * 10) * scaleFactor;
+      const scale = Math.min(canvas.width, canvas.height) / 1000;
+      this.w = (25 + Math.random() * 15) * scale;
+      this.h = (20 + Math.random() * 10) * scale;
       this.x = Math.random() * canvas.width;
       this.y = -this.h;
-      this.opacity = this.w;
+      this.xSpeed = (Math.random() - 0.5) * 3 * scale;
+      this.ySpeed = (0.5 + Math.random() * 1.5) * scale;
       this.flip = Math.random();
-      this.xSpeed = (Math.random() - 0.5) * 3 * scaleFactor;
-      this.ySpeed = (0.5 + Math.random() * 1.5) * scaleFactor;
       this.flipSpeed = Math.random() * 0.03;
     }
 
-    draw(ctx, petalImg) {
-      if (this.y > canvas.height || this.x > canvas.width || this.x < 0) {
+    animate() {
+      this.x += this.xSpeed;
+      this.y += this.ySpeed;
+      this.flip += this.flipSpeed;
+      if (this.y > canvas.height || this.x > canvas.width || this.x < 0)
         this.reset();
-      }
-      ctx.globalAlpha = this.opacity;
+
+      ctx.globalAlpha = this.w / 40;
       ctx.drawImage(
         petalImg,
         this.x,
@@ -181,19 +177,12 @@ const startPetalAnimation = () => {
         this.h * (0.8 + Math.abs(Math.sin(this.flip)) / 5)
       );
     }
-
-    animate(ctx, petalImg) {
-      this.x += this.xSpeed;
-      this.y += this.ySpeed;
-      this.flip += this.flipSpeed;
-      this.draw(ctx, petalImg);
-    }
   }
 
-  function render(petalArray, ctx) {
+  function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    petalArray.forEach((petal) => petal.animate(ctx, petalImg));
-    window.requestAnimationFrame(() => render(petalArray, ctx));
+    petals.forEach((p) => p.animate());
+    requestAnimationFrame(render);
   }
 };
 
@@ -288,7 +277,6 @@ const scrollToContent = () => {
   /* min-height: 5rem; */
   /* align-items: center; */
   font-weight: 700;
-  
 }
 
 .typewriter {
