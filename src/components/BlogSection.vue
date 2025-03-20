@@ -152,7 +152,11 @@ const filteredPosts = computed(() =>
       )
 );
 
+// Get first medium image from description
+
 const getMediumImage = (description) => {
+  if (!description) return DEFAULT_THUMBNAIL;
+
   const imageMatch = description.match(/<img.*?src=["'](.*?)["']/);
   return imageMatch ? imageMatch[1] : DEFAULT_THUMBNAIL;
 };
